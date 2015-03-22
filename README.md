@@ -1,5 +1,7 @@
 # hal-scala
 
+[![Build Status](https://travis-ci.org/Product-Foundry/hal-scala.svg?branch=master)](https://travis-ci.org/Product-Foundry/hal-scala)
+
 Small library to generate hal+json compatible output and rel documentation.
 
 Warning
