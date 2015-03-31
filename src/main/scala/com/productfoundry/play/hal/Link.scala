@@ -20,7 +20,7 @@ case class Link private(
   def templated(replacements: (String, String)*): Link = {
     copy(
       href = replacements.foldLeft(href) { (_href, replacement) =>
-        _href.replace(replacement._1, replacement._2)
+        _href.replace(replacement._1, s"{${replacement._2}}")
       },
       templatedOption = Some(true)
     )
