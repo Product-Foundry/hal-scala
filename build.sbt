@@ -1,10 +1,9 @@
 import bintray.Keys._
-import com.typesafe.sbt.SbtGit._
 import sbt.Keys._
 
 lazy val commonSettings = Seq(
   organization := "com.productfoundry",
-  version := "0.1.1",
+  version := "0.1.2",
 
   scalaVersion := "2.11.6",
 
@@ -43,6 +42,7 @@ lazy val commonSettings = Seq(
 )
 
 lazy val root = (project in file("."))
+  .enablePlugins(SbtTwirl)
   .settings(commonSettings: _*)
   .settings(
     name := "hal-scala"

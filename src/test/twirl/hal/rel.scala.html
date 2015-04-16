@@ -1,0 +1,11 @@
+@(documentedRelation: com.productfoundry.play.hal.DocumentedRelation)(implicit request: play.api.mvc.RequestHeader, namespaces: com.productfoundry.play.hal.Namespaces)
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation</title>
+    </head>
+    <body>
+        @hal.html.relation(documentedRelation)
+    </body>
+</html>

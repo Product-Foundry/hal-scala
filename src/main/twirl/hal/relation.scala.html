@@ -1,0 +1,66 @@
+@(relation: com.productfoundry.play.hal.DocumentedRelation)(implicit request: play.api.mvc.RequestHeader, namespaces: com.productfoundry.play.hal.Namespaces)
+
+@pathName() = @{
+    val path = request.path
+    val trimmed = if(path.endsWith("/")) path.substring(0, path.length - 1) else path
+    val index = trimmed.lastIndexOf("/")
+    if(index == -1 || index == trimmed.length) trimmed else trimmed.substring(index + 1)
+}
+
+@absoluteUrl(url: String) = @{
+    "http" + (if (request.secure) "s" else "") + "://" + request.host + url
+}
+
+<h1 class="page-header">@pathName() <small>relation</small></h1>
+
+@for(method <- relation.methods) {
+    <div class="well method">
+        <h2>@method.verb</h2>
+        <div class="description">
+        @method.description
+        </div>
+
+        @for(request <- method.requests) {
+            <h4>Request</h4>
+            <div class="body">
+                <h5>Payload</h5>
+                <pre>@play.api.libs.json.Json.prettyPrint(request.payload)</pre>
+            </div>
+        }
+
+        <div class="response">
+            <h3>Responses</h3>
+
+            @for(response <- method.responses) {
+                <div class="code">
+                    <h4>@response.statusCode @response.status</h4>
+                    <div class="description">
+                    @response.description
+                    </div>
+                    @for(body <- response.documentedResponseBodyOption) {
+                        <div class="body">
+                            <h5>Body</h5>
+                            <div class="state">
+                                <h6>State</h6>
+                                <pre>@play.api.libs.json.Json.prettyPrint(body.state)</pre>
+                            </div>
+                            <div class="links">
+                                <h6>Links</h6>
+                                <ul>
+                                @for(link <- body.links) {
+                                    <li><a href="@absoluteUrl(link.link.href)">@namespaces.curieHref(link.link.href)</a>
+                                        - @{link.link.titleOption.fold("")(_ + " ")}(@link.requirement.toString.toUpperCase)</li>
+                                }
+                                </ul>
+                            </div>
+                            <div class="headers">
+                                <h6>Headers</h6>
+                                <pre>@for(header <- body.headers) {@{s"""${header.name}: ${header.value}\n"""}}</pre>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+}
