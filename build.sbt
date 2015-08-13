@@ -1,11 +1,13 @@
 import bintray.Keys._
 import sbt.Keys._
 
+scalaVersion := "2.11.7"
+
 lazy val commonSettings = Seq(
   organization := "com.productfoundry",
   version := "0.1.2",
 
-  scalaVersion := "2.11.6",
+  scalaVersion := "2.11.7",
 
   scalacOptions ++= Seq(
     "-encoding", "UTF-8",
