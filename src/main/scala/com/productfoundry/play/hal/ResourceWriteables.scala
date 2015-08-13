@@ -4,6 +4,8 @@ import play.api.http.{ContentTypeOf, MimeTypes, Writeable}
 import play.api.libs.json._
 import play.api.mvc._
 
+import scala.concurrent.ExecutionContext.Implicits.global
+
 trait ResourceWriteables
   extends Controller {
 
