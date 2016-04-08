@@ -1,4 +1,3 @@
-import bintray.Keys._
 import sbt.Keys._
 
 scalaVersion := "2.11.7"
@@ -7,7 +6,7 @@ lazy val commonSettings = Seq(
   organization := "com.productfoundry",
   version := "0.1.3",
 
-  scalaVersion := "2.11.7",
+  scalaVersion := "2.11.8",
 
   scalacOptions ++= Seq(
     "-encoding", "UTF-8",
@@ -21,11 +20,6 @@ lazy val commonSettings = Seq(
     "-Yinline",
     "-Xfuture"
   ),
-
-  // Bintray
-  repository in bintray := "maven",
-  licenses += ("Apache-2.0", url("https://www.apache.org/licenses/LICENSE-2.0.html")),
-  bintrayOrganization in bintray := Some("productfoundry"),
 
   // Test execution
   parallelExecution in Test := false,
@@ -43,10 +37,15 @@ lazy val commonSettings = Seq(
   )
 )
 
+lazy val bintraySettings = Seq(
+  licenses += ("Apache-2.0", url("https://www.apache.org/licenses/LICENSE-2.0.html")),
+  bintrayOrganization := Some("productfoundry")
+)
+
 lazy val root = (project in file("."))
   .enablePlugins(SbtTwirl)
   .settings(commonSettings: _*)
+  .settings(bintraySettings: _*)
   .settings(
     name := "hal-scala"
   )
-  .settings(bintrayPublishSettings: _*)
