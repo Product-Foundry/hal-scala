@@ -13,13 +13,13 @@ case class Namespace(
   private val startIndex = reference.indexOf(Rel)
   assert(startIndex != -1, s"Namespace '$prefix' does not contain $Rel URI template argument")
 
-  private val endIndex = startIndex + Rel.size
+  private val endIndex = startIndex + Rel.length
   private val left = reference.substring(0, startIndex)
   private val right = reference.substring(endIndex)
 
   def curie(href: String): Option[String] = {
     if (href.startsWith(left) && href.endsWith(right)) {
-      Some(prefix + ":" + href.substring(startIndex, href.length - right.size))
+      Some(prefix + ":" + href.substring(startIndex, href.length - right.length))
     } else {
       None
     }
@@ -45,7 +45,9 @@ case class Namespaces(
   }
 
   def curieHref(href: String): String = {
-    namespaceByPrefix.values.map(_.curie(href)).flatten.headOption.getOrElse(href)
+    val curiedRefs = namespaceByPrefix.values.flatMap(_.curie(href))
+    val shortestRef = curiedRefs.reduceOption[String] { case (a, b) => if (a.length < b.length) a else b }
+    shortestRef.getOrElse(href)
   }
 }
 
