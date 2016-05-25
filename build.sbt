@@ -28,8 +28,8 @@ lazy val commonSettings = Seq(
 
   // Dependencies
   libraryDependencies ++= Seq(
-    "com.typesafe.play"      %% "play"                              % "2.4.3"    % "provided",
-    "com.typesafe.play"      %% "play-test"                         % "2.4.3"    % "test",
+    "com.typesafe.play"      %% "play"                              % "2.5.3"    % "provided",
+    "com.typesafe.play"      %% "play-test"                         % "2.5.3"    % "test",
     "org.scalatest"          %% "scalatest"                         % "2.2.4"    % "test",
     "org.scalacheck"         %% "scalacheck"                        % "1.12.2"   % "test"
   )

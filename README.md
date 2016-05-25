@@ -7,7 +7,7 @@ Small library to generate hal+json compatible output and rel documentation.
 Warning
 -------
 
-Work in progress, extracted from a working application. Depends on play 2.4.x.
+Work in progress, extracted from a working application. Depends on play 2.5.x.
 
 Todo
 ----
